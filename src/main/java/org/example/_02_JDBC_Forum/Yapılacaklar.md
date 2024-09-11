@@ -21,7 +21,20 @@ Giriş Yap:
      - username giriniz:
      - password giriniz:
      - Eğer giriş bilgileri doğru ise o zaman başka bir ekrana geçiş yapılır.
-   
+
+MainController
+
 ***************
 Hoşgeldin, Ad Soyad
 ***************
+
+-------Post Menüsü------
+1- Postları Görüntüle
+2- Post Paylaş
+3- Kendi postlarını görüntüle
+4- Kullanıcıları Listele(user-findAll)
+5- Çıkış Yap
+
+Yapılacaklar:
+Entity kısmında Post(id, userId, baslik, icerik, paylasimTarihi)++
+PostRepository(Crud İşlemleri- findAll, save- post paylaşma)++

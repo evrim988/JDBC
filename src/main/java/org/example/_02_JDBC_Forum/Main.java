@@ -1,21 +1,27 @@
 package org.example._02_JDBC_Forum;
 
+import org.example._02_JDBC_Forum.controller.UserController;
 import org.example._02_JDBC_Forum.entites.User;
+import org.example._02_JDBC_Forum.repositories.DatabaseHelper;
 import org.example._02_JDBC_Forum.repositories.UserRepository;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class Main {
     static Scanner sc = new Scanner(System.in);
-    static UserRepository userRepository = new UserRepository();
+
 
     public static void main(String[] args) {
         menu();
       // userRepository.findAll().forEach(System.out::println);
+
+
     }
 
     private static void menu() {
+
         int userInput = -1;
         do {
             System.out.println("**** Foruma Hosgeldiniz ****");
@@ -24,20 +30,21 @@ public class Main {
             System.out.println("0- Çıkış Yap");
             System.out.print("Seçiminiz: ");
             userInput = sc.nextInt();
+            sc.nextLine();
             menuOptions(userInput);
 
         } while (userInput != 0);
     }
 
     private static void menuOptions(int userInput) {
-
+        UserController userController = new UserController();
         switch (userInput) {
             case 1: {
-                kayitOl();
+                userController.registerUser();
                 break;
             }
             case 2: {
-                //girisYap();
+                userController.girisYap();
                 break;
             }
             case 0: {
@@ -51,41 +58,8 @@ public class Main {
         }
 
 
+
     }
 
-    private static void kayitOl() {
-        System.out.println("***** Kullanici Kayit Formu *****");
-        System.out.print("Adınız: ");
-        String ad = sc.next();
-        System.out.print("Soyadiniz: ");
-        String soyad = sc.next();
-        String username = getUsername();
-        System.out.print("Password giriniz: ");
-        String password = sc.next();
-        User user = new User(ad, soyad, username, password);
-        userRepository.save(user);
-    }
 
-    private static String getUsername() {
-        String username;
-        while (true) {
-            System.out.print("Username giriniz: ");
-            username = sc.next();
-            if (existByUserName(username)) {
-                return username;
-            } else {
-                System.out.println("Bu kullanıcı adı daha önce alınmış, farklı bir kullanıcı adı giriniz.");
-            }
-        }
-    }
-
-    private static boolean existByUserName(String username) {
-        List<User> userList = userRepository.findAll();
-        for (User user : userList) {
-            if (user.getUsername().equalsIgnoreCase(username)) {
-                return false;
-            }
-        }
-        return true;
-    }
 }

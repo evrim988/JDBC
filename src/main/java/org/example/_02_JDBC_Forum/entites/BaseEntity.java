@@ -1,6 +1,6 @@
 package org.example._02_JDBC_Forum.entites;
 
-public class BaseEntity {
+public abstract class BaseEntity {
 
     private Integer state;
     private Long createat; //bigint karşılığı

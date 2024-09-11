@@ -10,7 +10,7 @@ import java.util.Optional;
 
 public class UserRepository implements ICrud<User> {
 
-    private final DatabaseHelper databaseHelper;
+    private static  DatabaseHelper databaseHelper;
     private String sql;
 
     public UserRepository() {
@@ -27,12 +27,15 @@ public class UserRepository implements ICrud<User> {
 
     @Override
     public void delete(int id) {
-
+        sql ="DELETE FROM tbluser WHERE id="+id;
+        databaseHelper.executeUpdate(sql);
     }
 
     @Override
     public void update(User user) {
-
+        sql = "UPDATE tbluser SET ad='%s', soyad='%s', username='%s', password='%s' WHERE id=%d"
+                .formatted(user.getAd(), user.getSoyad(), user.getUsername(), user.getPassword(), user.getId());
+        databaseHelper.executeUpdate(sql);
     }
 
     @Override
@@ -56,6 +59,18 @@ public class UserRepository implements ICrud<User> {
 
     @Override
     public Optional<User> findById(int id) {
+        sql = "SELECT * FROM tbluser WHERE id="+id;
+        Optional<ResultSet> resultSet = databaseHelper.executeQuery(sql);
+        try{
+            if (resultSet.isPresent()) {
+                ResultSet rs = resultSet.get();
+                if (rs.next()) {
+                    return Optional.of(getValueFromResultSet(rs));
+                }
+            }
+        }catch (SQLException e){
+            System.out.println("Kullanıcı bulmada bir sorun oluştu.. "+e.getMessage());
+        }
         return Optional.empty();
     }
 
@@ -69,5 +84,38 @@ public class UserRepository implements ICrud<User> {
         long createat = rs.getLong("createat");
         long updateat = rs.getLong("updateat");
         return new User(id, ad, soyad, username, password, state, createat, updateat);
+    }
+
+    public Optional<User> doLogin(String username, String password) {
+        sql =" SELECT * FROM tbluser WHERE username = '%s' AND password = '%s'"
+                .formatted(username, password);
+        Optional<ResultSet> resultSet = databaseHelper.executeQuery(sql);
+        try {
+            if (resultSet.isPresent()) {
+                ResultSet rs = resultSet.get();
+                if (rs.next()){
+                    return Optional.of(getValueFromResultSet(rs));
+                }
+            }
+        }
+        catch (SQLException e) {
+            System.out.println("giriş sırasında hata oluştu.."+e.getMessage());
+        }
+        return Optional.empty();
+    }
+
+    public static boolean existByUserName(String username) {
+        String sql = "SELECT * FROM tbluser WHERE username = '" + username + "'";
+        Optional<ResultSet> resultSet = databaseHelper.executeQuery(sql);
+        if (resultSet.isPresent()) {
+            try {
+                return resultSet.get().next();
+            }
+            catch (SQLException e){
+                System.out.println("existsByUserName metodu çalışırken hata oluştu.."+e.getMessage());
+            }
+        }
+
+        return false;
     }
 }
