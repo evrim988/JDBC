@@ -1,6 +1,5 @@
 package org.example._02_JDBC_Forum.entites;
 
-import org.example._01_JDBC_ETicaret.entity.BaseEntity;
 
 import java.time.LocalDateTime;
 
@@ -31,7 +30,7 @@ public class Post extends BaseEntity {
         this.paylasimTarihi = paylasimTarihi;
     }
 
-    public Post( int id, int user_id, String baslik, String icerik, LocalDateTime paylasimTarihi, Integer state, Long createat, Long updateat) {
+    public Post( int id, int user_id, String baslik, String icerik, LocalDateTime paylasimTarihi, Integer state, LocalDateTime createat, LocalDateTime updateat) {
         super(state, createat, updateat);
         this.id = id;
         this.user_id = user_id;

@@ -1,5 +1,7 @@
 package org.example._01_JDBC_ETicaret.entity;
 
+import java.time.LocalDateTime;
+
 public class BaseEntity {
 
     private Integer state;

@@ -84,8 +84,8 @@ public class PostRepository implements ICrud<Post> {
         String icerik = rs.getString("icerik");
         Integer state = rs.getInt("state");
         LocalDateTime paylasilmaTarihi = rs.getTimestamp("paylasilma_tarihi").toLocalDateTime();
-        Long createat = rs.getLong("createat");
-        Long updateat = rs.getLong("updateat");
+        LocalDateTime createat = rs.getTimestamp("createat").toLocalDateTime();
+        LocalDateTime updateat = rs.getTimestamp("updateat").toLocalDateTime();
 
         return new Post(id,user_id,baslik,icerik,paylasilmaTarihi, state,createat,updateat);
     }

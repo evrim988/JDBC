@@ -4,6 +4,7 @@ import org.example._02_JDBC_Forum.entites.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -81,8 +82,8 @@ public class UserRepository implements ICrud<User> {
         String username = rs.getString("username");
         String password = rs.getString("password");
         int state=rs.getInt("state");
-        long createat = rs.getLong("createat");
-        long updateat = rs.getLong("updateat");
+        LocalDateTime createat = rs.getTimestamp("createat").toLocalDateTime();
+        LocalDateTime updateat = rs.getTimestamp("updateat").toLocalDateTime();
         return new User(id, ad, soyad, username, password, state, createat, updateat);
     }
 

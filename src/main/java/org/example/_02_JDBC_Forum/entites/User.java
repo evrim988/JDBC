@@ -1,6 +1,8 @@
 package org.example._02_JDBC_Forum.entites;
 
-import org.example._01_JDBC_ETicaret.entity.BaseEntity;
+
+
+import java.time.LocalDateTime;
 
 public class User extends BaseEntity {
     private int id;
@@ -27,7 +29,7 @@ public class User extends BaseEntity {
         this.password = password;
     }
 
-    public User(int id, String ad, String soyad, String username, String password,Integer state,Long createat, Long updateat) {
+    public User(int id, String ad, String soyad, String username, String password, Integer state, LocalDateTime createat, LocalDateTime updateat) {
         super(state, createat, updateat);
         this.id = id;
         this.ad = ad;

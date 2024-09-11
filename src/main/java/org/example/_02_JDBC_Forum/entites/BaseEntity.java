@@ -1,15 +1,17 @@
 package org.example._02_JDBC_Forum.entites;
 
+import java.time.LocalDateTime;
+
 public abstract class BaseEntity {
 
     private Integer state;
-    private Long createat; //bigint karşılığı
-    private Long updateat; //bigint karşılığı
+    private LocalDateTime createat; //bigint karşılığı
+    private LocalDateTime updateat; //bigint karşılığı
 
     public BaseEntity() {
     }
 
-    public BaseEntity(Integer state, Long createat, Long updateat) {
+    public BaseEntity(Integer state, LocalDateTime createat, LocalDateTime updateat) {
         this.state = state;
         this.createat = createat;
         this.updateat = updateat;
@@ -23,19 +25,19 @@ public abstract class BaseEntity {
         this.state = state;
     }
 
-    public Long getCreateat() {
+    public LocalDateTime getCreateat() {
         return createat;
     }
 
-    public void setCreateat(Long createat) {
+    public void setCreateat(LocalDateTime createat) {
         this.createat = createat;
     }
 
-    public Long getUpdateat() {
+    public LocalDateTime getUpdateat() {
         return updateat;
     }
 
-    public void setUpdateat(Long updateat) {
+    public void setUpdateat(LocalDateTime updateat) {
         this.updateat = updateat;
     }
 }
